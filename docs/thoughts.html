@@ -1,0 +1,81 @@
+---
+title: Thoughts 
+permalink: /thoughts/
+layout: page
+excerpt: All post.
+comments: false
+---
+
+<style>
+.post-item { 
+  margin-bottom: 1rem; 
+}
+.post-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.5rem;
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none; 
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* make the card span the full width of its container */
+  box-sizing: border-box; /* ensure padding doesn’t increase total width */
+}
+.post-card:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.post-item-content {
+  flex: 1;               /* left side fills available space */
+}
+.post-item-title {
+  margin: 0;
+}
+.post-item-description {
+  font-size: 0.9rem;
+  color: #555;           /* light mode grey */
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+.post-item-image {
+  max-width: 200px;
+  height: auto;
+  margin-left: 1rem;
+  border-radius: 8px;
+}
+@media (prefers-color-scheme: dark) {
+  .post-item-description {
+    color: #aaa;         /* dark mode grey */
+  }
+}
+</style>
+
+<div class="search-article">
+  <label for="search-input" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(128,128,128,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+  </label>
+  <input type="search" id="search-input" placeholder="Find some articles here" aria-label="Search">
+</div>
+
+<ul id="search-results"></ul>
+
+{%- for post in site.posts -%}
+  {%- capture current_year -%}{{ post.date | date: "%Y" }}{%- endcapture -%}
+  {%- unless current_year == previous_year -%}
+    <h2>{{ current_year }}</h2>
+    {%- assign previous_year = current_year -%}
+  {%- endunless -%}
+  <article class="post-item">
+    <a class="post-card" href="{{ post.url }}">
+      <div class="post-item-content">
+        <h3 class="post-item-title">{{ post.title | escape }}</h3>
+        {% if post.description %}
+          <p class="post-item-description">{{ post.description }}</p>
+        {% endif %}
+      </div>
+      {% if post.image %}
+        <img class="post-item-image" src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+      {% endif %}
+    </a>
+  </article>
+{%- endfor -%}

@@ -27,8 +27,10 @@ google_analytics: # leave blank unless you have an ID
 
 # Collection setting
 collections:
+  projects:
+    output: true
   posts:
-    output: truee
+    output: true
 
 # Markdown settings
 markdown: kramdown
