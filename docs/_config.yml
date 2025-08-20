@@ -5,7 +5,7 @@ description: >-
   Site for my ramblings and history, thoughts and philosophies.
 lang: en-US
 timezone: EST  
-image: assets/img/ogp.png 
+image: assets/img/avatar.png 
 repo: https://github.com/MasterOfCrows/dmo 
 mode: dark 
 
@@ -16,7 +16,7 @@ author:
   github: MasterOfCrows
   twitter: DialloTheGreat
   email: molinadiallo@gmail.com
-  avatar: /assets/img/avatar.jpg # add this image if you want an avatar
+  avatar: /assets/img/avatar.jpg
 
 # URL settings
 url: "https://dmo.github.io"

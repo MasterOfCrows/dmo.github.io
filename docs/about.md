@@ -1,18 +1,16 @@
 ---
-title: Colophon
+title: Hello There
 permalink: /about/
 layout: page
 excerpt: Hello peeps, I'm student of computer science from Banyuwangi, living in Jogjakarta. This blog for documentation about my programming journey, running on jekyll, hosting on netlify and using my own simple theme.
 comments: false
 ---
 
-He's a student from Banyuwangi, living in Jogjakarta. the blog for documentation about his programming 🎒 journey, running on jekyll, hosting on [now.sh](http://now.sh) and using his own theme, he name it <a href="https://github.com/piharpi/jekyll-klise" target="_blank" rel="noopener">klisé</a>, he also loves to learning web technology; but he often forgot, that a reason why him doing the writing.
+I'm Diallo, a graduate from Rensselaer Polytechnic Institute who studied Biomedical Engineering, was mentored by the genius Nate Diller, and let his insatiable desire for knowledge and problem solving lead him across many fields of interest; all in an attempt to better understand the world and one day lead a team of amazing individuals towards making it Greater.
 
-If you have a question about him or else, just send a letter to him.
+If you have any questions about any of my writings or work, feel free to email me with the information below. 
 
-You can [report](http://github.com/piharpi/jekyll-klise/issues/new) if there is an broken link(s) or somethings else.
-
-**may u needs ✨**
+**With Courage ✨**
 
 - {{ site.author.email }}
 - github.com/{{ site.author.github }}

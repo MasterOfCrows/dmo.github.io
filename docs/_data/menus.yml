@@ -10,6 +10,10 @@
   url: /about/
   external: false 
 
+- title: highlights
+  url: /noteworthy/
+  external: false 
+
 - title: projects
   url: /projects/
   external: false
