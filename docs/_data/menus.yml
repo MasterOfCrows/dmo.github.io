@@ -1,0 +1,20 @@
+- title: home
+  url: /
+  external: false
+
+- title: thoughts
+  url: /thoughts/
+  external: false
+
+
+- title: projects
+  url: /projects/
+  external: false
+
+- title: highlights
+  url: /noteworthy/
+  external: false 
+
+- title: about
+  url: /about/
+  external: false 
