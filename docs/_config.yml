@@ -16,7 +16,8 @@ author:
   github: MasterOfCrows
   twitter: DialloTheGreat
   email: molinadiallo@gmail.com
-  avatar: /assets/img/avatar.jpg
+  avatar_real: /assets/img/me.jpeg
+  avatar_persona: /assets/img/avatar.png
 
 # URL settings
 url: "https://dmo.github.io"

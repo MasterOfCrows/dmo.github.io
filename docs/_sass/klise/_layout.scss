@@ -181,17 +181,30 @@
 
 // Author
 .author {
-  margin-top: 6.3rem;
-  margin-bottom: 7.2rem;
+  margin-top: 3.3rem;
+  margin-bottom: 4.2rem;
   text-align: center;
 
   @include media-query($on-mobile) {
     margin-bottom: 3em;
   }
 
+  .author-avatar-group {
+    display: flex;
+    justify-content: center;
+    gap: 2.1rem; // spacing between images
+    margin-bottom: .5rem;
+
+    @include media-query($on-mobile) {
+      flex-direction: row; // stays side by side even on mobile
+      gap: 0.2rem;
+    }
+  }
+
   .author-avatar {
     width: 70px;
     height: 70px;
+    margin: 0;
     border-radius: 100%;
     user-select: none;
     background-color: $black;
