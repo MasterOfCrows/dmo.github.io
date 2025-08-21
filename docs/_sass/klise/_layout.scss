@@ -216,11 +216,13 @@
   }
 
   .author-name {
+    font-family: $mono-family;
     font-size: 1.7em;
     margin-bottom: 2px;
   }
 
   .author-bio {
+    font-family: $mono-family;
     margin: 0 auto;
     opacity: 0.9;
     max-width: 393px;
