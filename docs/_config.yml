@@ -6,7 +6,7 @@ description: >-
 lang: en-US
 timezone: EST  
 image: assets/img/avatar.png 
-repo: https://github.com/MasterOfCrows/dmo 
+repo: https://github.com/MasterOfCrows/dmo.github.io
 mode: dark 
 
 author:
@@ -22,7 +22,7 @@ author:
 # URL settings
 url: "https://dmo.github.io"
 baseurl: ""
-domain: dmo.github.io
+domain: dmolinad.com
 permalink: /:title/
 google_analytics: # leave blank unless you have an ID
 
