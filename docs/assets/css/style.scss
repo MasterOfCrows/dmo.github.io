@@ -1,4 +1,63 @@
 ---
 ---
 
+// Import the theme’s main stylesheet (already in your file)
 @import "main";
+
+// ===============================
+// Custom overrides / additions
+// ===============================
+
+// Example: custom table styling
+.small-table {
+  font-size: 0.85em;   
+  width: 50%;     
+  margin: 0.25em auto;
+  border-collapse: collapse;
+}
+
+.small-table th,
+.small-table td {
+  border: 1px solid #ddd;
+  padding: 0.25em 0.5em;
+  text-align: center;
+}
+
+.small-table th {
+  //background: #f5f5f5; 
+  font-weight: bold;
+}
+
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left; 
+}
+
+@media (max-width: 600px) {
+  .small-table {
+    font-size: 15em;
+  }
+}
+
+.h1 {
+  text-align: center;
+  font-size: 2.2em;
+  margin-bottom: 0.5em;
+}
+
+.h2 {
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.h3 {
+  text-align: left; /* keep smaller headings left-aligned */
+}
