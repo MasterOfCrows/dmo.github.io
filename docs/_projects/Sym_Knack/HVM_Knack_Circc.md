@@ -32,7 +32,7 @@ Let’s dive in shall we?
 A quantum superposition is described as the phenomena of which a qubit can simultaneously represent a low and high energy state prior to observation. In bitcode, this is both 0 and 1. Because of this principle, string theorists had questioned if there could exist a dimension where the observed ‘1’ qubit could be ‘0’ in the other, effectively branching the universe. In HVM, this is most certainly true.
 
 Superpositions in HVM are strange to explain without an understanding of Interaction Networks so there will be two. In the appendix will be the more complex answer. Let’s put it simply with an example, inspired by Victor Taelin’s explaination in his blog:
-\\[ \{fn1, fn2\} = x * 10 + 2\\]
+\\[ \\{fn1, fn2\\} = x * 10 + 2\\]
 In this scenario, functions \\(fn1\\) and \\(fn2\\) both are assigned its followup expression. ‘x’ is undefined and will take an argument within a lambda function. Assume that this program in pseudo-code will run lazily.
 
 \\[ \text{Result} = (fn1)(2) + (fn2)(1) \\]
@@ -52,12 +52,12 @@ Superpositions solve this by instead of copying the function, it solves the func
 \\[ \begin{align}
 \text{Result} = \lambda x_0.\,(x + 10 \cdot 2)(2) + \lambda x_1.\,(x + 10 \cdot 2)
 \\ 
-= \{1,2\} + 10 \cdot 2 \, m \\ 
-= \{1,2\} + 20 \\ 
+= \\{1,2\\} + 10 \cdot 2 \, m \\ 
+= \\{1,2\\} + 20 \\ 
 = 1 + 20 + 2 + 20 \\ 
 = 43 \end{align} \\]
 
-This ends up avoiding all duplication of work, instead only duplicating end results for final evaluation. How? **It builds the function once, and tosses in the variables twice!** By having the functions as a graph instead of a set of lambda terms, the graph can be built and resolved once and re-referenced later. By setting up the original superposition, you are essentially internally labelling a function as the same ‘net’ to be used in the future, much like other memoization work commonplace in computer science, but less fragile and more versatile. 
+This ends up avoiding all duplication of work, instead only duplicating end results for final evaluation. How? **It builds the function once, and tosses in the variables twice!** By having the functions as a graph instead of a set of lambda terms, the graph can be built and resolved once and re-referenced later. By setting up the original superposition, you are essentially internally labelling a function as the same ‘net’ to be used in the future, much like other memoization work commonplace in computer science, but less fragile and more versatile. (A more technical description will be provided soon, but this works for now.)
 
 I hope you’re skeptical of this claim, so that the demonstrations and graphs in the appendix can prove HVM's magic, step by step and without any cheats!
 
