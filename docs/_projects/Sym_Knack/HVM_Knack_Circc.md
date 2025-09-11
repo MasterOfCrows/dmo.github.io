@@ -11,19 +11,19 @@ usemathjax: true
 
 Computers and computation have been a series of discoveries compared to magic in fantasy worlds with how much we have changed our lives by them, and how its true inner workings continues to elude us. If we divide how we go about computing, it would likely look like this:
 
-Physical Layer
-Low Level Representation
-Computation Models        <- Subject of interest
-Computer Programming
-Systems & Applications
+- Physical Layer
+- Low Level Representation
+- Computation Models        <- Subject of interest
+- Computer Programming
+- Systems & Applications
 
 Formal computation models had an optimal computation method for decades that have gone under-utilized: interaction networks. Until recently, there have been few, if any, proper implementations that avoided tremendous overhead, slowing down the graph rewrite to lower than Haskell speeds. A man in Brazil who calls himself Victor Taelin, and his team at Higher Order Co, implemented a virtual machine that limited overhead and allowed for the model’s optimal properties to shine. This intermediate representation is known as Higher Order Virtual Machine or HVM, and has properties that directly expanded my interest in computer science.
 
-Toying around with the tool gave me some extremely valuable insights, and an understanding of why Higher Order Co, and arguably every autonomous AI company, will find their work of particular interest. If you want to understand more about HVM, Interaction Networks, or Interaction Combinators.
+Toying around with the tool gave me some extremely valuable insights, and an understanding of why Higher Order Co, and arguably every autonomous AI company, will find their work of particular interest. If you want to understand more about HVM, Interaction Networks, or Interaction Combinators, [you can read about it all in a synopsis Victor wrote here.](https://gist.github.com/VictorTaelin/46936b9fdfc3f982f07963c11756e36b)
 
 If you’re wondering why you should find out more: HVM allows for optimal evaluation of lambda terms and trivial memoization and parallelization of all parallelizable and memoizable code. In particular, their clever algorithms related to superpositions, taking advantage of I-Combinator’s graph-based nature to share computation between terms. How this is done, and what it means for enumeration is explored here, with further investigations well under way via implementing it for symbolic planning and other interesting projects.
 
-These are big claims, and I will write upon such soon, but for now you can read about it from Victor himself here. 
+These are big claims, but I intend to have this blog showcase that it is not merely such.
 
 Let’s dive in shall we?
 
