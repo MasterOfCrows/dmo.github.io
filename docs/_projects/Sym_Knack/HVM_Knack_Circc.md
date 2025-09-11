@@ -1,60 +1,138 @@
 ---
 layout: post
-title: "[WIP] HVM, Interaction Combinators, and Symbolic AI"
+title: "HVM and Program Synthesis: Testing Super-Positions for Toy Examples"
 date: 2025-08-21 01:00 +0700
 #modified: 2020-03-03 16:49:47 +07:00
 tags: [AI, Symbolic, Learning, Jargon]
 description: Data-Driven AI is creating their magnum opus, but a new set of discoveries may soon put symbolic AI back in people's visions of future thinking machines.
 image: "/assets/img/succ-combinator.jpg"
+usemathjax: true
 ---
 
-
-# Realization
 Computers and computation have been a series of discoveries compared to magic in fantasy worlds with how much we have changed our lives by them, and how its true inner workings continues to elude us. If we divide how we go about computing, it would likely look like this:
 
-- Physical Layer
-- Low Level Representation
-- Computation Models
-- Computer Programming
-- Systems & Applications
+Physical Layer
+Low Level Representation
+Computation Models        <- Subject of interest
+Computer Programming
+Systems & Applications
 
+Formal computation models had an optimal computation method for decades that have gone under-utilized: interaction networks. Until recently, there have been few, if any, proper implementations that avoided tremendous overhead, slowing down the graph rewrite to lower than Haskell speeds. A man in Brazil who calls himself Victor Taelin, and his team at Higher Order Co, implemented a virtual machine that limited overhead and allowed for the model’s optimal properties to shine. This intermediate representation is known as Higher Order Virtual Machine or HVM, and has properties that directly expanded my interest in computer science.
 
-Formal computation models had an optimal computation method for decades that have gone under-utilized: interaction networks. Until recently, there have been few, if any, proper implementations that avoided tremendous overhead. A man in Brazil who calls himself Victor Taelin implemented a virtual machine that limited overhead and allowed for the optimal properties to shine, known as Higher Order Virtual Machine.  
+Toying around with the tool gave me some extremely valuable insights, and an understanding of why Higher Order Co, and arguably every autonomous AI company, will find their work of particular interest. If you want to understand more about HVM, Interaction Networks, or Interaction Combinators.
 
-Toying around with the tool gave me some extremely valuable insights, and an understanding of why Higher Order Co, and arguably every autonomous AI company, finds Interaction networks so powerful. 
+If you’re wondering why you should find out more: HVM allows for optimal evaluation of lambda terms and trivial memoization and parallelization of all parallelizable and memoizable code. In particular, their clever algorithms related to superpositions, taking advantage of I-Combinator’s graph-based nature to share computation between terms. How this is done, and what it means for enumeration is explored here, with further investigations well under way via implementing it for symbolic planning and other interesting projects.
 
-Without knowing everything there is to know, the main innovations of note are an alternative to lambda calculus that allows for inherent memoization of all computations to never share work, and superpositions, which allows for an input to exist as two states simultaneously, achieving the work of both on call. 
+These are big claims, and I will write upon such soon, but for now you can read about it from Victor himself here. 
 
-Let’s look at some toy examples.
+Let’s dive in shall we?
+
+# Superpositions
+
+A quantum superposition is described as the phenomena of which a qubit can simultaneously represent a low and high energy state prior to observation. In bitcode, this is both 0 and 1. Because of this principle, string theorists had questioned if there could exist a dimension where the observed ‘1’ qubit could be ‘0’ in the other, effectively branching the universe. In HVM, this is most certainly true.
+
+Superpositions in HVM are strange to explain without an understanding of Interaction Networks so there will be two. In the appendix will be the more complex answer. Let’s put it simply with an example, inspired by Victor Taelin’s explaination in his blog:
+\\[ \{fn1, fn2\} = x * 10 + 2\\]
+In this scenario, functions \\(fn1\\) and \\(fn2\\) both are assigned its followup expression. ‘x’ is undefined and will take an argument within a lambda function. Assume that this program in pseudo-code will run lazily.
+
+\\[ \text{Result} = (fn1)(2) + (fn2)(1) \\]
+
+The answer to this would most clearly be 43.
+
+\\[ \begin{align} \text{Result} = \lambda x.\,(x + 10 \cdot 2)(2) + \lambda x.\,(x + 10 \cdot 2)(1) \\ 
+= (2 + 10 \cdot 2) + (1 + 10 \cdot 2)\\ 
+= 2 + 20 + 1 + 20 \\ 
+= 43 
+\end{align} \\]
+
+Normally, in order for a lambda function to solve this problem, the two cases of the same function must be duplicated, especially in the case of a lazy algorithm, but as you can see, some work is done twice without necessity. We already know what 10 * 2 is, why is this computation repeated? 
+
+Superpositions solve this by instead of copying the function, it solves the function once and uses 1 and 2 separately on the partially solved case.
+
+\\[ \begin{align}
+\text{Result} = \lambda x_0.\,(x + 10 \cdot 2)(2) + \lambda x_1.\,(x + 10 \cdot 2)
+\\ 
+= \{1,2\} + 10 \cdot 2 \, m \\ 
+= \{1,2\} + 20 \\ 
+= 1 + 20 + 2 + 20 \\ 
+= 43 \end{align} \\]
+
+This ends up avoiding all duplication of work, instead only duplicating end results for final evaluation. How? **It builds the function once, and tosses in the variables twice!** By having the functions as a graph instead of a set of lambda terms, the graph can be built and resolved once and re-referenced later. By setting up the original superposition, you are essentially internally labelling a function as the same ‘net’ to be used in the future, much like other memoization work commonplace in computer science, but less fragile and more versatile. 
+
+I hope you’re skeptical of this claim, so that the demonstrations and graphs in the appendix can prove HVM's magic, step by step and without any cheats!
+
 
 # The NAND Gate Synthesizer 
-Image
-This program is an automatic circuit builder. It takes a target circuit, tries every possible arrangement, tests them all, and returns the first circuit that works exactly the same as the target. 
+
+This program is an automatic circuit builder. It takes a target circuit, tries possible arrangement, tests them all, and returns the first circuit that works exactly the same as the target. There is no room for half answers, although there can be theoretically inefficient ones.
 
 More concretely, a visual:
+![AND](/assets/gifs/AND.gif)
 
-IN0,IN1 and IN2 all represent an input, arriving from either another NAND gate or x and y. Any input represents either a 0 or a 1. The main idea is to have x and y static, representing a zero or a 1, and with both inserted into static positions of any generated circuit containing combinations of logic gates (in this case NAND), will provide an output of 0 or 1 with a dedicated truth table.
+Here is a circuit of NAND only gates that replicate the function of an AND gate. How do we know this? Look at a truth table:
 
+AND
+{: .h2}
 
-We want a circuit that, with minimal gates, accomplishes this configuration. Depending on the allowed depth , solving this problem can be rather prohibitive. Why? Because the search space grows explosively. After all, something like this would grow at a rate of n^2 variables per gate, with at most 2 additional gates per gate. Depth limit prohibits this from going off the deep end.
+| x | y | output |
+|:-:|:-:|:------:|
+| 0 | 0 | 0      |
+| 1 | 0 | 0      |
+| 0 | 1 | 0      |
+| 1 | 1 | 1      |
+{: .small-table}
 
-(Image)
-To be clear, enumerating all of the solutions would be infinite with many, many redundant solutions. Normally, in, say, Haskell, preventing the duplication of solutions requires quite a fair amount of overhead and communication. Not to mention that much of the same work could be duplicated through each enumeration. State of the art solutions, depending on the level of complexity allowable, bypasses this through clever SAT/SMT solutions to limit redundancy and cut down on the space of potential answers efficiently. 
+Both an AND gate and set of NAND gates illustrated above provide this outcome, with the lightbulb at the end only turning on when both x and y are enabled.
 
-But with Interaction Combinators, both processes are inherent in its architecture.
-Below is an implementation that provides a solution in x seconds with a maximum depth of y in Haskell. It utilizes basic memoization methods, reusing whatever sub-expressions it can without using a SAT.
+A more complex example:
 
-Here is a SAT solution stats with the same conditions
-(Image)
-And here is HVM, or the I-Net solution.
-(Image)
-	
-[The code for this program is supplied in my github, written directly into HVM.](https://github.com/MasterOfCrows/HVM_Enum)
+![XOR](/assets/gifs/XOR.gif)
 
-Imagine HVM as this NAND gate system. Imagine the electricity flowing through each node, to get to the end (or not when cut off). HVM’s architecture is much like it, ultimately: when a program is developed, a graph of all of the functions and used variable is created, and when one function utilizes pieces of another, or a variable used once before, it travels through the same set of nodes, automatically memoizing the process without much of any legwork. And when dimensions of answers need to be eliminated or a graph has run its course, an ‘Erase’ node is introduced, causing the graph to never traverse the path again. 
+XOR
+{: .h2}
 
-This has the same effect as eliminating redundancy through SATs, but inherent in the computation method. This, by definition of Turing Completeness, is indeed possible in lambda calculus, but with far more overhead, as shown in the runtimes and the need for SATs, also by definition. This is why HVM beats any other tool in runtimes. The more complex the problem, the more easily HVM and future tools like it will win out.
+| x | y | output |
+|:-:|:-:|:------:|
+| 0 | 0 | 0      |
+| 1 | 0 | 1      |
+| 0 | 1 | 1      |
+| 1 | 1 | 0      |
+{: .small-table}
 
-If another example for enumeration and heuristic search is desired, I wrote up a knapsack solver in HVM as well, with impressive runtimes. It does not beat SOTA, since they tend to use various tricks to solve this problem, but an equivalently complex solution properly utilizing HVM’s superpositions and inherent memoization will theoretically surpass it as well.
+This particular circuit, a representation of XOR, activates exclusively when only one of the two inputs are active. This is also the shortest a circuit of NAND gates can represent XOR. Even still, it is 3 layers deep (including the first NAND) of NAND gates. AND only had two. More complex circuits will require more and more layers, raising complexity for generating solutions.
 
-The potential for computation models like HVM to aid AI planning, theorem proving, and heuristic search appears substantial. Most interesting to me is how these properties potentially make it easier to construct complex reasoning systems without the heavy engineering effort of prior. My broader question is whether the same principles can help us build symbolic AI systems that match or complement data-driven models in flexibility and speed. I personally suspect so, and had thus marked my infatuation with a particular niche of computer science.
+In fact, it can be represented with a function:
+
+$$
+N(m) = \prod_{i=1}^{m} (i+1)^2 \\ = \Big((m+1)!\Big)^2
+$$  
+
+Using Stirling’s approximation for factorials,  
+
+$$
+(m+1)! \sim \sqrt{2\pi (m+1)} \;\left(\frac{m+1}{e}\right)^{\,m+1},
+$$
+
+$$
+N(m) \sim \left[\sqrt{2\pi (m+1)} \;\left(\frac{m+1}{e}\right)^{\,m+1}\right]^2 = 2\pi (m+1)\;\left(\frac{m+1}{e}\right)^{2(m+1)}
+$$
+
+Taking the logarithm to highlight asymptotic behavior:  
+
+$$
+\log N(m) = 2\big((m+1)\log(m+1) - (m+1)\big) + O(\log m) \\ = \Theta(m \log m).
+$$  
+
+Thus the growth rate of the circuit search space is  
+
+$$
+N(m) = \exp(\Theta(m \log m)) = m^{\Theta(m)} \cdot e^{\Theta(m)},
+$$  
+
+*where* \\(m = \\) *number of gates.*
+
+Lot's of math to say that the problem grows super-exponentially as you allow greater and greater depth and increase the number of gates. Coming up with every possibility would be difficult for any sufficiently large circuit. Now, if you've done circuit, work you'll know that this problem is tackled anyway. Tools like Verilog have compilers that navigate this very issue, using tricks and solvers of various kinds to work through this intractable problem. But it turns out that HVM may be suitably equipped to handle them as well, with far less overhead!
+
+Bold claim, so let's show what's possible now:
+
+[WIP]

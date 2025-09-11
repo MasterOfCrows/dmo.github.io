@@ -7,3 +7,5 @@ tags: [fun, LLMs, education]
 description: "With LLMs comes the opportunity for entirely new genres of entertainment and education. First on the docket: debating ideology!"
 image: 
 ---
+
+[WIP]
