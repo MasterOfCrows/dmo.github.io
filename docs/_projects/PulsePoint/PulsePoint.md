@@ -67,7 +67,23 @@ These aren't design specifications, of course. Those changed more elastically af
 
 Of of the most critical (and critiqued externally) was handling the optics to target the necessary blood flow areas. See, there had been historically some confusion as to how to best acquire PPG data because of a bit of a mystery in the PPG world: **why green wavelength LEDs led to better data than red ones.**
 
-Theoretically speaking, wavelengths between 
+Theoretically speaking, wavelengths between 800-916nm has been sited as the wavelenth blood cells can absorb readily. PPG technology had historically attempted to use such for blood oximetry and blood-volume data collection. But studies had shown that for one reason or another, different wavelengths ~450nm, green light, had often produced more reliable data. The rationale for why had been unclear, but it had been theorized. [In a 2016 paper from Vanderbilt University](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0165413), the stark information differential was illuminated between green and red LEDs for blood-volume detection with iPPG. Green light performed unequivably better than its near infrared (NIR) counterpart in terms data discernability and signal amplitude, alongside characterization of what the team labeled as 'hot spots', locations highly active and easily discernable in the iPPG. Their theory as to why is what our team considered as fact: green wavelengths likely help detect deformations in tissue near capiliaries, and with additional external pressure this effect is magnified. 
+
+Green like is indeed absorbed by the skin, and as such the scattering effect is lessened for detection than IR. Since arteries with significant blood flow are significantly deeper in the skin (3mm artery vs 0.3-0.8mm capiliaries), a wavelength that is absorbed and reflected much more predictably by avoiding deep penetration would lead to stronger signals that are more predictable as well. With this information in mind, we wanted to have our near IPPG device attempt to 'map' these deformations across time.
+
+Knowing this, that means that for Near-Field Optics, we must be rather careful about where our focal point is!
+
+(Image)
+
+If you wished to see an object far or near, you must be able to focus your eyes, changing the focal point through fine-motor muscle deformations of your lens. Our inorganic counterparts, cameras, lack this ability, but can be mechanically shifted with various shuttles or fixed with static lenses. In an ideal scenario, we would be able to adjust the focal point for maximum detail in the final product. But for the MVP, we selected a particular lens capable of viewing objects milimeters away. 
+
+(image) 
+
+Due to the physics of near-field imaging, it actually turned out to be non-trivial to get a small setup capable of handling our use-case:
+
+
+
+We wished to test various wavelengths at various locations of the body all the same.
 
 
 # Ergonomics & Heat Management
