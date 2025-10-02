@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[WIP] PulsePoint: The Cardiac Monitoring Device of Tomorrow"
+title: "PulsePoint: The Cardiac Monitoring Device of Tomorrow"
 date: 2024-12-10 01:00 +0700
 modified: 2025-9-30 16:49:47 +07:00
 tags: [biomed, engineering, health]
